@@ -1,0 +1,86 @@
+{
+  "users": [
+    {
+      "id": 1,
+      "name": "Ti",
+      "email": "t",
+      "senha": "123"
+    },
+    {
+      "email": "a",
+      "name": "a",
+      "senha": "a",
+      "id": 2
+    }
+  ],
+  "locals": [
+    {
+      "id": 1,
+      "uf": "RS",
+      "city": "Porto Alegre"
+    }
+  ],
+  "restaurants": [
+    {
+      "id": 1,
+      "name": "paris 6",
+      "locals": {
+        "id": 1,
+        "uf": "RS",
+        "city": "Porto Alegre"
+      },
+      "comentarios": [
+        {
+          "id": 1,
+          "texto": "Incrivel!!!"
+        },
+        {
+          "id": 2,
+          "texto": "Horrivel!!!"
+        },
+        {
+          "texto": "a",
+          "id": 3
+        },
+        {
+          "texto": "a",
+          "id": 4
+        },
+        {
+          "texto": "a",
+          "id": 5
+        },
+        {
+          "texto": "a",
+          "id": 6
+        },
+        {
+          "texto": "a",
+          "id": 7
+        },
+        {
+          "texto": "a",
+          "id": 8
+        },
+        {
+          "texto": "t",
+          "id": 9
+        },
+        {
+          "texto": "y",
+          "id": 10
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "name": "jacquin",
+      "locals": {
+        "id": 1,
+        "uf": "RS",
+        "city": "Porto Alegre"
+      },
+      "comentarios": []
+    }
+  ]
+}

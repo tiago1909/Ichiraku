@@ -1,0 +1,16 @@
+.cadastro{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    margin-top: 3em;
+}
+.cadastro_container{
+    background-color: #fff;
+    height: 550px;
+    width: 450px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border-radius: 10px;
+}
