@@ -1,0 +1,14 @@
+{
+    "configurations": [
+        {
+            "type": "java",
+            "name": "Spring Boot-IchirakuApplication<ichiraku>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "mainClass": "com.br.ichiraku.IchirakuApplication",
+            "projectName": "ichiraku",
+            "args": "",
+            "envFile": "${workspaceFolder}/.env"
+        }
+    ]
+}

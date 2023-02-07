@@ -18,3 +18,8 @@
 .form_control input::placeholder{
     color: #7b7b7b;
 }
+
+.form_control input:focus{
+    box-shadow: 0;
+    outline: 0;
+}

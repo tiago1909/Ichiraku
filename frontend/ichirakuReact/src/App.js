@@ -10,6 +10,9 @@ import CriacaoRestaurante from './components/pages/CriacaoRestaurante';
 import EdicaoRestaurante from './components/pages/EdicaoRestaurante';
 import EdicaoPratos from './components/pages/EdicaoPratos';
 import Menu from './components/pages/Menu';
+import api from './services/api';
+import { useState } from 'react';
+import Teste from './components/pages/Teste';
 
 
 function App() {
@@ -17,6 +20,7 @@ function App() {
     <Router>
     <Container>
       <Routes>
+        <Route exact path='/teste' element={<Teste />} />
         <Route exact path='/' element={<Login />} />
         <Route exact path='/home' element={<Home />} />
         <Route exact path='/login' element={<Login />} />

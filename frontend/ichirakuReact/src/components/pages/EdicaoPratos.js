@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import Input from "../form/Input";
 import PratoEdicao from "../projects/PratoEdicao";
 import styles from './EdicaoPratos.module.css';
@@ -16,7 +16,13 @@ function EdicaoPratos(){
     const[pratos, setPratos] = useState([])
     const[getPratos, setGetPratos] = useState(false)
     const[textButton, setTextButton] = useState('Adicionar')
+    const navigate = useNavigate()
 
+    useEffect(() => {
+        if(pessoa===null){
+            navigate(`/`)
+        }
+    })
 
 
 

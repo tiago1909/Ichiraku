@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { Link, useParams } from 'react-router-dom'
+import { Link, useNavigate, useParams } from 'react-router-dom'
 import Input from '../form/Input'
 import Submit from '../form/Submit'
 import styles from './Perfil.module.css'
@@ -10,6 +10,13 @@ function Perfil(){
     let pessoaObj = JSON.parse(pessoa)
     const[user, setUser] = useState(pessoaObj)
     const[possuiRestaurante, setPossuiRestaurante] = useState(false)
+    const navigate = useNavigate()
+
+    useEffect(() => {
+        if(user===null){
+            navigate(`/`)
+        }
+    })
 
     const submit = (e) => {
         e.preventDefault()

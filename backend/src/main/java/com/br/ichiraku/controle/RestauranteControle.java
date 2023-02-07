@@ -27,9 +27,9 @@ public class RestauranteControle {
         return rs.criar(restaurante);
     }
 
-    @GetMapping("/mostrar/restaurante/{id}")
-    private ResponseEntity<?> mostrar(@PathVariable Integer id){
-        return rs.mostrarInformacoes(id);
+    @GetMapping("/restaurante/mostrar/{nome}")
+    private ResponseEntity<?> mostrar(@PathVariable String nome){
+        return rs.mostrarInformacoes(nome);
     }
 
     @GetMapping("/usuariopossuirestaurante/{id}")
@@ -45,6 +45,16 @@ public class RestauranteControle {
     @PutMapping("/restaurante/editar")
     private ResponseEntity<?> editar(@RequestBody Restaurante restaurante){
         return rs.editar(restaurante);
+    }
+
+    @GetMapping("/restaurante/{nome}")
+    private ResponseEntity<?> pesquisarPorNome(@PathVariable String nome){
+        return rs.pesquisar(nome);
+    }
+
+    @PutMapping("/restaurante/{i}")
+    private ResponseEntity<?> avaliar(@RequestBody Restaurante restaurante, @PathVariable int i){
+        return rs.avaliar(restaurante, i);
     }
     
 }

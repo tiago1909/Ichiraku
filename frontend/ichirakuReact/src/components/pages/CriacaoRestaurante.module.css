@@ -2,3 +2,30 @@ button{
     height: 50px;
     width: 100px;
 }
+
+.container_criacao{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 50px;
+}
+
+.container_criacao form{
+    width: 500px;
+}
+
+.box_locais{
+    top: 280px;
+    position: absolute;
+    background-color: #fff;
+    width: 500px;
+    max-height: 155px;
+    overflow-y: scroll;
+}
+
+.box_locais li{
+    margin: 5px;
+    border-bottom: 1px solid rgba(66, 66, 66, 0.2);
+    border-radius: 1px;
+}

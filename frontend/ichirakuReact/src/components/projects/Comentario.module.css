@@ -1,0 +1,50 @@
+.container_comentario{
+    width: 100%;
+    height: 150px;
+    background-color: #fff;
+    border-radius: 10px;
+    margin-bottom: 20px;
+    padding: 10px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.btns{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    
+}
+
+.btns button{
+    background-color: #fff;
+    border: none;
+    transition: 0.2s;
+    cursor: pointer;
+}
+
+.btns button:hover{
+    color: #D85151;
+}
+
+.info input{
+    border: none;
+    font-size: 20px;
+    width: 100%;
+    height: 50px;
+}
+
+.nome{
+    font-size: 23px;
+    font-weight: bold;
+}
+
+.info{
+    width: 75%;
+}
+
+.texto{
+    padding-left: 10px;
+    padding-top: 10px;
+}

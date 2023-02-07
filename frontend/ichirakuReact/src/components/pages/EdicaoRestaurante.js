@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Input from "../form/Input";
 import styles from './EdicaoRestaurante.module.css'
 import LinkButtom from '../layouts/LinkButtom'
@@ -9,7 +9,13 @@ function EdicaoRestaurante(){
     let pessoa = localStorage.getItem("usuario")
     let pessoaObj = JSON.parse(pessoa)
     const[restaurante, setRestaurante] = useState({})
+    const navigate = useNavigate()
 
+    useEffect(() => {
+        if(pessoa===null){
+            navigate(`/`)
+        }
+    })
 
     useEffect(() => {
         fetch(`http://localhost:8080/mostrar/usuario/${pessoaObj.id}`, {

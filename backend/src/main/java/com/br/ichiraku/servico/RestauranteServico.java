@@ -48,8 +48,8 @@ public class RestauranteServico {
         }
     }
 
-    public ResponseEntity<?> mostrarInformacoes(Integer id){
-        Restaurante restaurante = rr.findAllById(id);
+    public ResponseEntity<?> mostrarInformacoes(String nome){
+        Restaurante restaurante = rr.findAllByNome(nome);
         if(restaurante == null){
             rm.setMensagem("Não tem restaurante");
             return new ResponseEntity<RespostaModelo>(rm, HttpStatus.BAD_REQUEST);
@@ -95,6 +95,25 @@ public class RestauranteServico {
             return new ResponseEntity<Restaurante>(rr.save(restaurante), HttpStatus.CREATED);
         }
     }    
+
+    public ResponseEntity<?> pesquisar(String nome){
+        
+        if(rr.findByNome(nome)!=null){
+            return new ResponseEntity<Restaurante>(rr.findByNome(nome), HttpStatus.OK);
+        } else {
+            rm.setMensagem("Não foi encontrado");
+            return new ResponseEntity<RespostaModelo>(rm, HttpStatus.NOT_FOUND);
+        }
+        
+        
+    }
+
+    public ResponseEntity<?> avaliar(Restaurante restaurante, int i){
+        restaurante.setQntAvaliacao(restaurante.getQntAvaliacao()+1);
+        restaurante.setSomaAvaliacao(restaurante.getSomaAvaliacao()+i);
+        return new ResponseEntity<>(rr.save(restaurante), HttpStatus.OK);
+        
+    }
 }
 
 

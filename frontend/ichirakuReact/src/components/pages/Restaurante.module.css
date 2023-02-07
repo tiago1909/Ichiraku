@@ -94,7 +94,56 @@
 }
 
 .comentarios{
-    background-color: blue;
-    height: 300px;
+    padding-bottom: 20px;
+}
+
+.avaliacao{
+    position: absolute;
+    left: 300px;
+    top: 465px;
+    width: 200px;
+    height: 150px;
+    background-color: inherit;
+    border-radius: 5px;
+}
+
+.avaliacao li{
+    list-style: none;
+    margin: 5px;
+    font-size: 18px;
+    font-weight: bold;
+    color: #D85151;
+
+}
+
+.comentario{
     width: 100%;
+    background-color: #fff;
+    border-radius: 10px;
+    padding: 10px;
+    margin-bottom: 20px;
+}
+
+.comentario form{
+    display: flex;
+    justify-content: space-between;
+}
+
+.nsei{
+    width: 100%;
+    height: 100%;
+}
+
+.comentario button{
+    align-self: center;
+    height: 36.66px;
+    background-color: #fff;
+    margin-top: 14px;
+    border: none;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.comentario button:hover{
+    color: #D85151;
 }

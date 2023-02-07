@@ -5,8 +5,8 @@ function Cadastro(){
     return(
         <div className={styles.cadastro}>
             <div className={styles.cadastro_container}>
-                <p>Login</p>
-                <ProjectFormCadastro btnText='Entrar'/>
+                <p>Cadastro</p>
+                <ProjectFormCadastro btnText='Cadastrar'/>
             </div>
         </div>
     )

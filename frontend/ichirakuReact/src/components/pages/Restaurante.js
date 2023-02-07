@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { useParams } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 import styles from './Restaurante.module.css'
 import star1 from '../images/Star 1.svg'
 import star2 from '../images/Star 2.svg'
@@ -17,14 +17,23 @@ function Restaurante(){
     const[restaurante, setRestaurante] = useState({})
     const[show, setShow] = useState(false)
     const[showComentario, setShowComentario] = useState(false)
+    const[showAvaliacao, setShowAvaliacao] = useState(false)
     const[comentario, setComentario] = useState({usuario:pessoaObj, comentario:'', restaurante:{}})
     const[comentarios, setComentarios] = useState([])
+    const[sumAvaliacao, setSumAvaliacao] = useState(0)
+    const navigate = useNavigate()
+
+    useEffect(() => {
+        if(pessoa===null){
+            navigate(`/`)
+        }
+    })
 
 
     //Restaurante
     useEffect(() => {
         
-        fetch(`http://localhost:8080/mostrar/restaurante/${name}`, {
+        fetch(`http://localhost:8080/restaurante/mostrar/${name}`, {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
@@ -34,6 +43,9 @@ function Restaurante(){
         .then((data) => {
             setRestaurante(data)
             if(restaurante.id!==null){
+                if(data.somaAvaliacao/data.qntAvaliacao !== 0){
+                    setSumAvaliacao(data.somaAvaliacao/data.qntAvaliacao)
+                }
                 setTimeout(() => {
                     setShow(true)
                     setShowComentario(true)
@@ -47,8 +59,9 @@ function Restaurante(){
 
 
     //GET COMENTARIOS
-    useEffect(() => {
-        fetch(`http://localhost:8080/comentario/mostrar/${name}`, {
+    if(restaurante.id!==null){
+        setTimeout(() => {
+            fetch(`http://localhost:8080/comentario/mostrar/${restaurante.id}`, {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
@@ -59,15 +72,12 @@ function Restaurante(){
             data.map((comentario) => {
                 if(comentarios.length<data.length){
                     comentarios.push(comentario)
-                }
-                
-                
+                } 
             })
-            console.log(comentarios)
-
         })
         .catch((err) => console.log(err))
-    }, [])
+        }, 2000);        
+    }
 
     // Postar comentario
     function postarComentario(e){
@@ -89,10 +99,38 @@ function Restaurante(){
     
     }
 
+
+
     function handleChange(e){
         e.preventDefault()
         setComentario({...comentario, [e.target.name]: e.target.value});
         console.log(comentario)
+    }
+
+    const avaliar =(e) =>{
+        if(showAvaliacao){
+            setShowAvaliacao(false)
+        } else {
+            setShowAvaliacao(true)
+        }
+    }
+
+    const avaliarClick = (e) =>{
+        console.log(e.target.value)
+        fetch(`http://localhost:8080/restaurante/${e.target.value}`, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(restaurante)
+        })
+        .then((resp) => resp.json())
+        .then((data) => {
+            console.log(data)
+            setRestaurante(data)
+        })
+        .catch((err) => console.log(err))
+    
     }
 
     return(
@@ -112,24 +150,51 @@ function Restaurante(){
                 </div>
                 <div className={styles.review}>
                     <img src={star1} className={styles.star_1}></img>
-                    <span className={styles.review_span_1}>10</span>
-                    <img src={star2} className={styles.star_2}></img>
-                    <span className={styles.review_span_2}>Classificar</span>
-
+                    <span className={styles.review_span_1}>{sumAvaliacao.toFixed(1)}</span>
+                    <img src={star2} className={styles.star_2} onClick={avaliar}></img>
+                    <span className={styles.review_span_2} onClick={avaliar}>Classificar</span>
+                    {showAvaliacao &&
+                        <div className={styles.avaliacao}>
+                            <ul>
+                                <li key={1} id={1} value={`1`} onClick={avaliarClick}>
+                                    <span className={styles.teste}></span> 1 estrela
+                                </li>
+                                <li key={2} id={2} value={`2`} onClick={avaliarClick}>
+                                    2 estrela
+                                </li>
+                                <li key={3} id={3} value={`3`} onClick={avaliarClick}>
+                                    3 estrela
+                                </li>
+                                <li key={4} id={4} value={`4`} onClick={avaliarClick}>
+                                    4 estrela
+                                </li>
+                                <li key={5} id={5} value={`5`} onClick={avaliarClick}>
+                                    5 estrela
+                                </li>
+                            </ul>
+                        </div>
+                    }
                 </div>
                 <div className={styles.menu}>
                     <LinkButtom to={`/menu/${restaurante.id}` } texto={'Menu'}/>
                 </div>
-                <div>
+                <div className={styles.comentario}>
                     <form onSubmit={postarComentario}>
-                        <Input type={'text'} name={'comentario'} text={'Comentario'}  placeholder={'Insira o comentario...'} handleOnChange={handleChange}/>
+                        <div className={styles.nsei}>
+                            <Input type={'text'} name={'comentario'} text={'Comentario'}  placeholder={'Insira o comentario...'} handleOnChange={handleChange}/>
+                        </div>
                         <button>Enviar</button>
                     </form>
                 </div>
             </div>
         }
         {showComentario && 
-            comentarios.map((com) => <Comentario comentario={com}/>)
+        <div className={styles.comentarios}>
+            <>
+            {comentarios.map((com) => <Comentario comentario={com}/>)}
+            </>
+        </div>
+            
             
         }
             

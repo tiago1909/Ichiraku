@@ -12,5 +12,9 @@ public interface RestauranteRepository extends JpaRepository<Restaurante, Intege
     public Restaurante findAllById(Integer id);
 
     public boolean existsByUsuarioId(Integer id);
+
+    public Restaurante findByNome(String nome);
+
+    public Restaurante findAllByNome(String nome);
     
 }

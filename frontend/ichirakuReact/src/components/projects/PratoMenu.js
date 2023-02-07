@@ -5,12 +5,12 @@ function PratoMenu(prato){
         <div className={styles.box_prato}>
             <div className={styles.foto}></div>
             <div className={styles.info}>
-                <p>Nome:</p>
-                <p>{prato.prato.nome}</p>
-                <p>Preço:</p>
-                <p><span>R$</span>{prato.prato.preco}</p>
-                <p>Descrição:</p>
-                <p>{prato.prato.descricao}</p>
+                <div className={styles.nome_descricao}>
+                    <p>{prato.prato.nome}</p>
+                    <p>{prato.prato.descricao}</p>
+                </div>
+                <p className={styles.preco}><span>R$</span>{prato.prato.preco}</p>
+                
             </div>
         </div>
     )

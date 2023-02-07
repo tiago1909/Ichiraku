@@ -8,6 +8,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import com.br.ichiraku.Restaurante;
 import com.br.ichiraku.entities.Comentario;
 import com.br.ichiraku.repositories.ComentarioRepository;
 
@@ -24,5 +25,13 @@ public class ComentarioServico {
         return cr.findAllByRestaurante_id(id);
     }
 
-    
+    public ResponseEntity<?> excluir(Comentario comentario){
+        cr.deleteById(comentario.getId());
+        return new ResponseEntity<>("foi ", HttpStatus.OK);
+    }
+
+    public ResponseEntity<?> editar(Comentario comentario){
+        cr.save(comentario);
+        return new ResponseEntity<>("foi", HttpStatus.OK);
+    }
 }
