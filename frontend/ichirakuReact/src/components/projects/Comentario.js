@@ -70,8 +70,8 @@ function Comentario(comentario){
             
             {show &&
                 <div className={styles.btns}>
-                    <button onClick={excluir}>Excluir</button>
-                    <button onClick={editar}>Editar</button>
+                    <button className={styles.btn} onClick={excluir}>Excluir</button>
+                    <button className={styles.btn} onClick={editar}>Editar</button>
                 </div>
             }
         </div>

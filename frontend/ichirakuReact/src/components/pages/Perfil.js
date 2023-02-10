@@ -61,9 +61,9 @@ function Perfil(){
     return(
         <div className={styles.perfil_container}>
             {possuiRestaurante ? (
-                <Link to={`/edicaorestaurante`}>Editar restaurante</Link>
+                <Link to={`/edicaorestaurante`} style={{ textDecoration: 'none' }}><span>Editar restaurante</span></Link>
             ) : (
-                <Link to={`/criacaorestaurante`}>Criar restaurante</Link>
+                <Link to={`/criacaorestaurante`} style={{ textDecoration: 'none' }}><span>Criar restaurante</span></Link>
             )}
             
             

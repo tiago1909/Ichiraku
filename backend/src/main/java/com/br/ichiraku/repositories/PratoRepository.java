@@ -9,5 +9,7 @@ import com.br.ichiraku.Prato;
 public interface PratoRepository extends JpaRepository<Prato, Integer>{
 
     Iterable<Prato> findAllByRestauranteId(Integer restauranteId);
+
+    Prato findAllById(Integer pratoId);
     
 }

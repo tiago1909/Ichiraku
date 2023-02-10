@@ -1,9 +1,9 @@
 import styles from './Submit.module.css'
 
-function Submit({text}){
+function Submit({text}, HandleonClick){
     return(
         <div className={styles.submit_container}>
-            <button className={styles.btn}>{text}</button>
+            <button className={styles.btn} onClick={HandleonClick}>{text}</button>
         </div>
     )
 }

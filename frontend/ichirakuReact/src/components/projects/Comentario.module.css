@@ -17,14 +17,15 @@
     
 }
 
-.btns button{
+.btns .btn{
     background-color: #fff;
+    color: #222;
     border: none;
     transition: 0.2s;
     cursor: pointer;
 }
 
-.btns button:hover{
+.btns .btn:hover{
     color: #D85151;
 }
 
@@ -47,4 +48,5 @@
 .texto{
     padding-left: 10px;
     padding-top: 10px;
+    font-size: 20px;
 }

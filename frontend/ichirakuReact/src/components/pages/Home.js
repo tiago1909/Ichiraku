@@ -1,10 +1,7 @@
-import LinkButtom from "../layouts/LinkButtom"
 import { useLocation, useNavigate } from 'react-router-dom'
 import { useState, useEffect } from "react"
 import styles from './Home.module.css'
 import { Link } from 'react-router-dom'
-import Loading from "../layouts/Loading"
-import getStorageValue, { useLocalStorage } from "../storage/useLocalStorage"
 import ProjectFormHome from "../projects/ProjectFormHome"
 
 
@@ -26,7 +23,7 @@ function Home(){
         <>
         
             <div className={styles.home_container}>
-                <Link to={`/perfil`}>Perfil</Link>
+                <Link to={`/perfil`} style={{ textDecoration: 'none' }}><span>Perfil</span></Link>
                 <div className={styles.home_box}>
                     <ProjectFormHome/>
                 </div>

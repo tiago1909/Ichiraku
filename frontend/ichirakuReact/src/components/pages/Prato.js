@@ -1,26 +1,25 @@
 import { useState, useEffect } from 'react'
-import { useNavigate, useParams } from 'react-router-dom'
-import styles from './Restaurante.module.css'
+import { Link, useNavigate, useParams } from 'react-router-dom'
+import styles from './Prato.module.css'
 import star1 from '../images/Star 1.svg'
 import star2 from '../images/Star 2.svg'
 import paris6 from '../images/paris6.jpg'
 import Input from '../form/Input'
 import Comentario from '../projects/Comentario'
-import LinkButtom from '../layouts/LinkButtom'
 
 
 
-function Restaurante(){
-    const {name} = useParams()
+function Prato(){
+    const {id} = useParams()
     let pessoa = localStorage.getItem("usuario")
     let pessoaObj = JSON.parse(pessoa)
-    const[restaurante, setRestaurante] = useState({})
+    const[prato, setPrato] = useState({})
     const[show, setShow] = useState(false)
     const[showComentario, setShowComentario] = useState(false)
     const[showAvaliacao, setShowAvaliacao] = useState(false)
-    const[comentario, setComentario] = useState({usuario:pessoaObj, comentario:'', restaurante:{}})
+    const[comentario, setComentario] = useState({usuario:pessoaObj, comentario:'', prato:{}})
     const[comentarios, setComentarios] = useState([])
-    const[sumAvaliacao, setSumAvaliacao] = useState(0)
+    const[sumAvaliacao, setSumAvaliacao] = useState()
     const navigate = useNavigate()
 
     useEffect(() => {
@@ -30,10 +29,10 @@ function Restaurante(){
     })
 
 
-    //Restaurante
+    //Prato
     useEffect(() => {
         
-        fetch(`http://localhost:8080/restaurante/mostrar/${name}`, {
+        fetch(`http://localhost:8080/prato/${id}`, {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
@@ -41,15 +40,21 @@ function Restaurante(){
         })
         .then((resp) => resp.json())
         .then((data) => {
-            setRestaurante(data)
-            if(restaurante.id!==null){
-                if(data.somaAvaliacao/data.qntAvaliacao !== 0){
-                    setSumAvaliacao(data.somaAvaliacao/data.qntAvaliacao)
+            setPrato(data)
+            console.log(data)
+            if(prato.id!==null){
+                console.log(typeof(data.somaAvaliacao))
+
+                if(data.qntAvaliacao != 0 && data.somaAvaliacao/data.qntAvaliacao !== 0){
+                    console.log(`ta vindo`)
+                    setSumAvaliacao((data.somaAvaliacao/data.qntAvaliacao).toFixed(1))
+                } else {
+                    setSumAvaliacao(`vazio`)
                 }
                 setTimeout(() => {
                     setShow(true)
                     setShowComentario(true)
-                    setComentario({...comentario, restaurante:data})
+                    setComentario({...comentario, prato:data})
                   }, "3000")
                 
             }
@@ -59,9 +64,9 @@ function Restaurante(){
 
 
     //GET COMENTARIOS
-    if(restaurante.id!==null){
+    if(prato.id!==null){
         setTimeout(() => {
-            fetch(`http://localhost:8080/comentario/restaurante/mostrar/${restaurante.id}`, {
+            fetch(`http://localhost:8080/comentario/prato/mostrar/${prato.id}`, {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
@@ -89,7 +94,7 @@ function Restaurante(){
     // Postar comentario
     function postarComentario(e){
         console.log(comentario)
-        fetch(`http://localhost:8080/comentario/restaurante/criar`, {
+        fetch(`http://localhost:8080/comentario/prato/criar`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -123,18 +128,18 @@ function Restaurante(){
     }
 
     const avaliarClick = (e) =>{
-        console.log(e.target.value)
-        fetch(`http://localhost:8080/restaurante/${e.target.value}`, {
+        fetch(`http://localhost:8080/prato/avaliar/${e.target.value}`, {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify(restaurante)
+            body: JSON.stringify(prato)
         })
         .then((resp) => resp.json())
         .then((data) => {
             console.log(data)
-            setRestaurante(data)
+            setPrato(data)
+            window.location.reload();
         })
         .catch((err) => console.log(err))
     
@@ -149,21 +154,20 @@ function Restaurante(){
                 </div>
                 <div className={styles.description}>
                     <div className={styles.des_text}>
-                        <h1>{restaurante.nome}</h1>
-                        <p>{restaurante.endereco}</p>
-                        <p>{restaurante.horario}</p>
-                        <p>{restaurante.descricao}</p>
+                        <h1>{prato.nome}</h1>
+                        <p>{prato.descricao}</p>
+                        <Link to={`/${prato.restaurante.nome}`} style={{ textDecoration: 'none' }}><span className={styles.nome_restaurante}>{prato.restaurante.nome}</span></Link>
                     </div>
                 </div>
                 <div className={styles.review}>
                     <img src={star1} className={styles.star_1}></img>
-                    <span className={styles.review_span_1}>{sumAvaliacao.toFixed(1)}</span>
+                    <span className={styles.review_span_1}>{sumAvaliacao}</span>
                     <img src={star2} className={styles.star_2} onClick={avaliar}></img>
                     <span className={styles.review_span_2} onClick={avaliar}>Classificar</span>
                     {showAvaliacao &&
                         <div className={styles.avaliacao}>
                             <ul>
-                                <li key={1} id={1} value={`1`} onClick={avaliarClick}>
+                                <li key={1} id={1} value={1} onClick={avaliarClick}>
                                     <span className={styles.teste}></span> 1 estrela
                                 </li>
                                 <li key={2} id={2} value={`2`} onClick={avaliarClick}>
@@ -182,9 +186,7 @@ function Restaurante(){
                         </div>
                     }
                 </div>
-                <div className={styles.menu}>
-                    <LinkButtom to={`/menu/${restaurante.id}` } texto={'Menu'}/>
-                </div>
+                
                 <div className={styles.comentario}>
                     <form onSubmit={postarComentario}>
                         <div className={styles.nsei}>
@@ -212,4 +214,4 @@ function Restaurante(){
     )
 }
 
-export default Restaurante;
+export default Prato;

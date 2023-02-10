@@ -31,6 +31,11 @@ public class PratoControle {
         return ps.mostrar(id);
     }
 
+    @GetMapping("/prato/{id}")
+    public ResponseEntity<?> mostrarPrato(@PathVariable Integer id){
+        return ps.mostrarPrato(id);
+    }
+
     @DeleteMapping("prato/excluir/{id}")
     public ResponseEntity<?> excluir(@PathVariable Integer id){
         return ps.exluir(id);
@@ -39,5 +44,10 @@ public class PratoControle {
     @PutMapping("prato/editar")
     public ResponseEntity<?> editar(@RequestBody Prato prato){
         return ps.editar(prato);
+    }
+
+    @PutMapping("prato/avaliar/{i}")
+    public ResponseEntity<?> avaliar(@RequestBody Prato prato, @PathVariable int i){
+        return ps.avaliar(prato, i);
     }
 }

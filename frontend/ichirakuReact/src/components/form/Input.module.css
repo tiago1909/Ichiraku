@@ -12,7 +12,7 @@
 .form_control input{
     padding: .7em;
     border: none;
-    border-radius: 0;
+    border-radius: 10px;
 }
 
 .form_control input::placeholder{

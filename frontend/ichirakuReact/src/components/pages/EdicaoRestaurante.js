@@ -3,6 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import Input from "../form/Input";
 import styles from './EdicaoRestaurante.module.css'
 import LinkButtom from '../layouts/LinkButtom'
+import Submit from '../form/Submit'
 
 
 function EdicaoRestaurante(){
@@ -64,7 +65,7 @@ function EdicaoRestaurante(){
                 <Input type={'text'} name={'endereco'} text={'endereco'}  placeholder={'Insira o endereco...'} handleOnChange={handleChange} value={restaurante.endereco}/>
                 <Input type={'text'} name={'horario'} text={'horario'}  placeholder={'Insira o horario...'} handleOnChange={handleChange} value={restaurante.horario}/>
                 <Input type={'text'} name={'telefone'} text={'telefone'}  placeholder={'Insira o telefone...'} handleOnChange={handleChange} value={restaurante.telefone}/>
-                <button value={'editar'}>Editar</button>
+                <Submit text={'Salvar'} />
             </form>
             <div className={styles.link}>
                 <LinkButtom to={`/edicaopratos/${restaurante.id}`} texto={'Pratos'}/>

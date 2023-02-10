@@ -1,5 +1,6 @@
 package com.br.ichiraku.entities;
 
+import com.br.ichiraku.Prato;
 import com.br.ichiraku.Restaurante;
 import com.br.ichiraku.Usuario;
 
@@ -27,17 +28,48 @@ public class Comentario {
     @JoinColumn(name = "restaurante_id", referencedColumnName = "id")
     private Restaurante restaurante;
 
+    @OneToOne
+    @JoinColumn(name = "prato_id", referencedColumnName = "id")
+    private Prato prato;
+
     private String comentario;
+
+    public enum tipoEnum{
+        PRATO, RESTAURANTE
+    }
+
+
+    private tipoEnum tipo;
+
+    public tipoEnum getTipo() {
+        return tipo;
+    }
+
+    public void setTipo(tipoEnum tipo) {
+        this.tipo = tipo;
+    }
 
     public Comentario() {
     }
 
-    public Comentario(Usuario usuario, Restaurante restaurante, String comentario) {
+    public Comentario(Usuario usuario, Restaurante restaurante, String comentario, tipoEnum tipo, Prato prato) {
         this.usuario = usuario;
         this.restaurante = restaurante;
+        this.prato = prato;
         this.comentario = comentario;
+        this.tipo = tipo;
+        this.prato = prato;
     }
 
+
+    public Prato getPrato() {
+        return prato;
+    }
+
+    public void setPrato(Prato prato) {
+        this.prato = prato;
+    }
+    
     public String getComentario() {
         return comentario;
     }

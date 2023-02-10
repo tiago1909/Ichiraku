@@ -9,10 +9,13 @@ function ProjectFormHome(){
     const navigate = useNavigate()
     const [pesquisa, setpesquisa] = useState({})
     const [restaurantes, setRestaurantes] = useState([])
+    const [mensagem, setMensagem] = useState()
+    const [show, setShow] = useState(false)
+
 
     
     function pesquisaPorRestaurante(){
-        fetch(`http://localhost:8080/restaurante/${pesquisa.restaurante}`, {
+        fetch(`http://localhost:8080/restaurante/teste/${pesquisa.restaurante}/${cidadeSelecionadaLista}`, {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',
@@ -21,7 +24,18 @@ function ProjectFormHome(){
             .then((resp) => resp.json())
             .then((data) => {
                 console.log(data)
-                navigate(`/${data.nome}`)
+                if(data.mensagem === `Não foi encontrado`){
+                    setShow(true)
+                    setTimeout(() => {
+                        setShow(false)
+                    }, 1000)
+                } else{
+                    //navigate(`/${data.nome}`)
+                    navigate(`/search`, {state:{restaurantes: data}})
+                    console.log(data)
+                }
+                
+                
             })
             .catch((err) => console.log(err))
         
@@ -30,14 +44,12 @@ function ProjectFormHome(){
     const submit = (e) => {
         e.preventDefault()
         if(pesquisa.restarurante!==null){
-            console.log(pesquisa.restaurante)
             pesquisaPorRestaurante()
         }
     }
 
     function handleChange(e){
         e.preventDefault()
-        console.log(pesquisa)
         setpesquisa({...pesquisa, [e.target.name]: e.target.value})
     }
 
@@ -96,7 +108,11 @@ function ProjectFormHome(){
                 <Submit text={"Pesquisar"}/>
                 
             </form>
-            
+            {show && (
+                <div className={styles.mensagem}>
+                    <p>Não encontado</p>
+                </div>
+            )}
         </>
     )
 }

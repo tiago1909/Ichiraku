@@ -19,7 +19,7 @@ function EdicaoPratos(){
     const navigate = useNavigate()
 
     useEffect(() => {
-        if(pessoa===null){
+        if(pessoaObj===null){
             navigate(`/`)
         }
     })
@@ -105,7 +105,7 @@ function EdicaoPratos(){
         <div className={styles.container_principal}>
             <button onClick={showEdicao}>{textButton}</button>
             {showAdicionar ? (
-                <form onSubmit={adicionar}>
+                <form onSubmit={adicionar} className={styles.formulario}>
                     <Input type={'text'} name={'nome'} text={'Nome'}  placeholder={'Insira o nome...'} handleOnChange={handleChange}/>
                     <Input type={'text'} name={'descricao'} text={'Descrição'}  placeholder={'Insira a descrição...'} handleOnChange={handleChange}/>
                     <Input type={'number'} name={'preco'} text={'Preço'}  placeholder={'Insira o Preço...'} handleOnChange={handleChange}/>

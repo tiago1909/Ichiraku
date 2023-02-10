@@ -1,5 +1,9 @@
 package com.br.ichiraku;
 
+import java.util.List;
+
+import com.br.ichiraku.entities.Comentario;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -8,6 +12,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 @Entity
@@ -34,6 +39,9 @@ public class Prato {
     @JoinColumn(name = "restaurante_id")
     private Restaurante restaurante;
 
+    @OneToMany(mappedBy = "prato")
+    private List<Comentario> comentarios;
+
     public Prato(){
 
     }
@@ -45,6 +53,8 @@ public class Prato {
         this.restaurante = restaurante;
         this.preco = preco;
         this.descricao = descricao;
+        this.qntAvaliacao = 0;
+        this.somaAvaliacao = 0;
     }
 
     public double getPreco() {

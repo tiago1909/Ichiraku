@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.br.ichiraku.Restaurante;
+import com.br.ichiraku.repositories.RestauranteRepository;
 import com.br.ichiraku.servico.RestauranteServico;
 
 
@@ -21,6 +22,9 @@ public class RestauranteControle {
     
     @Autowired
     private RestauranteServico rs;
+
+    @Autowired
+    private RestauranteRepository rr;
 
     @PostMapping("/criar")
     private ResponseEntity<?> criar(@RequestBody Restaurante restaurante){
@@ -49,7 +53,7 @@ public class RestauranteControle {
 
     @GetMapping("/restaurante/{nome}")
     private ResponseEntity<?> pesquisarPorNome(@PathVariable String nome){
-        return rs.pesquisar(nome);
+        return rs.pesquisarPorNome(nome);
     }
 
     @PutMapping("/restaurante/{i}")
@@ -57,4 +61,14 @@ public class RestauranteControle {
         return rs.avaliar(restaurante, i);
     }
     
+    @GetMapping("/restaurante/mostrar/{nome}/{cidade}")
+    private ResponseEntity<?> mostrarPorCidade(@PathVariable String nome, @PathVariable String cidade){
+        return rs.mostrarInformacoesPorCidade(nome, cidade);
+    }
+
+    @GetMapping("/restaurante/teste/{nome}/{cidade}")
+    private ResponseEntity<?> mostrarPorCidade2(@PathVariable String nome, @PathVariable String cidade){
+        return rs.pesquisar(nome, cidade);
+    }
+
 }

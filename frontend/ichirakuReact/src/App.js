@@ -13,6 +13,8 @@ import Menu from './components/pages/Menu';
 import api from './services/api';
 import { useState } from 'react';
 import Teste from './components/pages/Teste';
+import Prato from './components/pages/Prato';
+import Search from './components/pages/Search';
 
 
 function App() {
@@ -31,6 +33,8 @@ function App() {
         <Route exact path='/edicaoRestaurante' element={<EdicaoRestaurante />} />
         <Route exact path='/edicaopratos/:id' element={<EdicaoPratos />} />
         <Route exact path='/menu/:id' element={<Menu />} />
+        <Route exact path='/prato/:id' element={<Prato />} />
+        <Route exact path='/search' element={<Search />} />
       </Routes>
     </Container>
   </Router>

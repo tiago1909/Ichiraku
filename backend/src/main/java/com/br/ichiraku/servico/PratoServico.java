@@ -28,6 +28,11 @@ public class PratoServico {
         return new ResponseEntity<>(pratos, HttpStatus.OK);
     }
 
+    public ResponseEntity<?> mostrarPrato(Integer pratoId){
+        Prato prato = pr.findAllById(pratoId);
+        return new ResponseEntity<Prato>(prato, HttpStatus.OK);
+    }
+
     public ResponseEntity<?> exluir(Integer id){
         pr.deleteById(id);
         rm.setMensagem("Excluido!");
@@ -43,5 +48,12 @@ public class PratoServico {
             
         }
         return new ResponseEntity<>(rm, HttpStatus.OK);
+    }
+
+    public ResponseEntity<?> avaliar(Prato prato, int i){
+        prato.setQntAvaliacao(prato.getQntAvaliacao()+1);
+        prato.setSomaAvaliacao(prato.getSomaAvaliacao()+i);
+        pr.save(prato);
+        return new ResponseEntity<>(prato, HttpStatus.OK);
     }
 }

@@ -60,6 +60,7 @@ function ProjectFormLogin({handleSubmit, btnText, userData}){
                     handleOnChange={handleChange}/>
                 <Submit text={btnText}/>
             </form>
+            <p>Não tem uma conta?</p>
             <LinkButtom to="/cadastro" texto="Cadastrar"/>
             {message && (
                 <div><Message type={"error"} msn={message}/></div>

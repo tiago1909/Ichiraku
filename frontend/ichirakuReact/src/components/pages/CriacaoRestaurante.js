@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import Input from "../form/Input";
+import Submit from "../form/Submit";
 import styles from './CriacaoRestaurante.module.css';
 import { useNavigate } from 'react-router-dom'
 
@@ -78,7 +79,7 @@ function CriacaoRestaurante(){
             <Input type={'text'} name={'nome'} text={'nome'}  placeholder={'Insira o nome...'} handleOnChange={handleChange}/>
             <Input type={'text'} name={'descricao'} text={'descricao'}  placeholder={'Insira a descricao...'} handleOnChange={handleChange} />
 
-            <Input type="text" text="cidade" name="cidade" placeholder="Insira o nome do restaurante..." 
+            <Input type="text" text="cidade" name="cidade" placeholder="Insira a cidade..." 
                     handleOnChange={handleOnChange} value={cidadeSelecionadaLista}
                     />
                     {
@@ -93,7 +94,7 @@ function CriacaoRestaurante(){
             <Input type={'text'} name={'endereco'} text={'endereco'}  placeholder={'Insira o endereco...'} handleOnChange={handleChange}/>
             <Input type={'text'} name={'horario'} text={'horario'}  placeholder={'Insira o horario...'} handleOnChange={handleChange}/>
             <Input type={'text'} name={'telefone'} text={'telefone'}  placeholder={'Insira o telefone...'} handleOnChange={handleChange}/>
-            <button value={'cadastrar'}></button>
+            <Submit text={'Cadastrar'} />
         </form>
         </div>
     )

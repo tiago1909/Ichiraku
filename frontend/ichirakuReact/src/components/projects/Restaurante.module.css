@@ -1,0 +1,50 @@
+.box_restaurante{
+    height: 150px;
+    width: 80%;
+    background-color: #fff;
+    margin-top: 50px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    padding-left: 7.5px;
+    transition: .2s;
+}
+
+.box_restaurante:hover{
+    transform: scale(1.03);
+}
+
+.foto{
+    width: 200px;
+    height: 90%;
+    background-color: black;
+    border-radius: 5px
+}
+
+.info{
+    display: flex;
+    justify-content: space-between;
+    width: 75%;
+    height: 100%;
+    padding: 15px;
+}
+
+.info p{
+    margin-bottom: 7.5px;
+}
+
+.nome_desccricao_endereco{
+
+}
+
+.nota{
+    align-self: center;
+    display: flex;
+}
+
+.nota p{
+    margin: 0;
+    align-self: center;
+    margin-right: 5px;
+    padding-top: 3px;
+}

@@ -6,6 +6,11 @@
     margin-bottom: 20px;
     border-radius: 5px;
     font-size: 18px;
+    transition: transform .2s;
+}
+
+.box_prato:hover{
+    transform: scale(1.03);
 }
 
 .foto{

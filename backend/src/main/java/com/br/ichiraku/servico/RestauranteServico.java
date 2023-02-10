@@ -1,6 +1,8 @@
 package com.br.ichiraku.servico;
 
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -58,6 +60,16 @@ public class RestauranteServico {
         }
     }
 
+    public ResponseEntity<?> mostrarInformacoesPorCidade(String nome, String cidade){
+        Restaurante restaurante = rr.findByNomeAndCidade(nome, cidade);
+        if(restaurante == null){
+            rm.setMensagem("Não tem restaurante");
+            return new ResponseEntity<RespostaModelo>(rm, HttpStatus.NOT_FOUND);
+        } else {
+            return new ResponseEntity<Restaurante>(restaurante, HttpStatus.OK);
+        }
+    }
+
     public ResponseEntity<Boolean> usuarioPossuiRestaurante(Integer id){
         boolean b = rr.existsByUsuarioId(id);
         if(b==true){
@@ -96,7 +108,7 @@ public class RestauranteServico {
         }
     }    
 
-    public ResponseEntity<?> pesquisar(String nome){
+    public ResponseEntity<?> pesquisarPorNome(String nome){
         
         if(rr.findByNome(nome)!=null){
             return new ResponseEntity<Restaurante>(rr.findByNome(nome), HttpStatus.OK);
@@ -108,11 +120,21 @@ public class RestauranteServico {
         
     }
 
+    public ResponseEntity<?> pesquisar(String nome, String cidade){
+        List<Restaurante> restaurantes = rr.findByCidadeAndNomeLike(cidade, "%"+nome+"%");
+        if(restaurantes.size() == 0){
+            rm.setMensagem("Não foi encontrado");
+            return new ResponseEntity<>(rm, HttpStatus.NOT_FOUND);
+        } else {
+            return new ResponseEntity<>(restaurantes, HttpStatus.OK);
+        }
+        
+    }
+
     public ResponseEntity<?> avaliar(Restaurante restaurante, int i){
         restaurante.setQntAvaliacao(restaurante.getQntAvaliacao()+1);
         restaurante.setSomaAvaliacao(restaurante.getSomaAvaliacao()+i);
         return new ResponseEntity<>(rr.save(restaurante), HttpStatus.OK);
-        
     }
 }
 

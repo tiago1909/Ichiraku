@@ -1,15 +1,17 @@
 .btn{
-    background-color: #222;
+    background-color: #D85151;
     color: #fff;
-    padding: 0.7em 1.2em;
     text-decoration: none;
     border: none;
+    border-radius: 25px;
+    padding: 0.5em 1.5em;
     transition: 0.5s;
     cursor: pointer;
 }
 
 .btn:hover{
-    color: red;
+    color: #D85151;
+    background-color: #fff;
 }
 
 .submit_container{
