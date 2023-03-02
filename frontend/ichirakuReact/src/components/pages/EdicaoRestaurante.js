@@ -52,7 +52,7 @@ function EdicaoRestaurante(){
         .then((resp) => resp.json())
         .then((data) => {
             setRestaurante(data)
-    
+            navigate(`/home`)
         })
         .catch((err) => console.log(err))
     }

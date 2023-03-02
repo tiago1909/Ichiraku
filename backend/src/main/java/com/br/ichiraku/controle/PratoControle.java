@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.br.ichiraku.Prato;
+import com.br.ichiraku.repositories.PratoRepository;
 import com.br.ichiraku.servico.PratoServico;
 
 @RestController
@@ -20,6 +21,9 @@ public class PratoControle {
     
     @Autowired
     private PratoServico ps;
+
+    @Autowired
+    private PratoRepository pr;
 
     @PostMapping("/prato/adicionar")
     public ResponseEntity<?> criar(@RequestBody Prato prato){
@@ -49,5 +53,10 @@ public class PratoControle {
     @PutMapping("prato/avaliar/{i}")
     public ResponseEntity<?> avaliar(@RequestBody Prato prato, @PathVariable int i){
         return ps.avaliar(prato, i);
+    }
+
+    @GetMapping("prato/{cidade}/{nome}")
+    public ResponseEntity<?> pratoPesquisa(@PathVariable String cidade, @PathVariable String nome){
+        return ps.pratoPesquisa(nome, cidade);
     }
 }

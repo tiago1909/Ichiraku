@@ -33,6 +33,7 @@ function Perfil(){
             setUser(data)
             localStorage.setItem("usuario", JSON.stringify(data))
             console.log(user)
+            navigate(`/home`)
         })
         .catch((err) => console.log(err))
     }

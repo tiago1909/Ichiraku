@@ -2,11 +2,16 @@ package com.br.ichiraku;
 
 import java.util.List;
 
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
+
 import com.br.ichiraku.entities.Comentario;
+import com.br.ichiraku.entities.Ingrediente;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -35,12 +40,15 @@ public class Prato {
     private int qntAvaliacao;
     private int somaAvaliacao;
 
-    @ManyToOne(cascade = CascadeType.MERGE)
+    @ManyToOne
     @JoinColumn(name = "restaurante_id")
     private Restaurante restaurante;
 
     @OneToMany(mappedBy = "prato")
     private List<Comentario> comentarios;
+
+    @OneToMany(mappedBy = "prato", fetch = FetchType.EAGER)
+    private List<Ingrediente> ingredientes;
 
     public Prato(){
 

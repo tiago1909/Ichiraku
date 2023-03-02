@@ -53,9 +53,11 @@ public class Restaurante {
     private List<Comentario> comentarios;
 
     
+    public Restaurante(){
+      
+    }
 
-
-    public void Restaurante(String nome, String descricao,
+    public Restaurante(String nome, String descricao,
     String horario,
     String endereco,
     boolean situacao,

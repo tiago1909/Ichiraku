@@ -1,47 +1,55 @@
-import axios from 'axios'
 import { useEffect, useState } from 'react'
-import SearchResult from '../projects/SearchResult'
 import styles from './Teste.module.css'
 
 function Teste(){
-    const[cidades, setCidades] = useState([])
-    const[cidadeSelecionadaLista, setCidadeSelecionadaLista] = useState()
-
-    const handleOnChange = (e) => {
-        const {value} = e.target
-        setCidadeSelecionadaLista()
+    const[img,  setImg] = useState()
+    const[imgu,  setImgu] = useState()
+    useEffect(() => {
         
-        if(!value){
-            setCidades([])
-            return 
-        } 
+    }, [])
 
-        const url = `https://servicodados.ibge.gov.br/api/v1/localidades/estados/RS/municipios?q=${value}`
+    const salvar = async(e) => {
+        e.preventDefault()
+        const formData = new FormData()
+        formData.append('image/png', img)
+        console.log(img)
+        fetch('http://localhost:8080/teste/post', {
+                method: 'POST',
+                mode: 'no-cors',
+                body: JSON.stringify(img.name
+                    ),
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Access-Control-Allow-Origin': '*'
+                    
+                },
 
-        fetch(url)
-            .then((response) => response.json())
-            .then((results) => setCidades(results))
+            })
+            .then((resp) => resp.text())
+            .then((data) => {
+                console.log(data)
+                //setImgu(URL.createObjectURL(data))
+                
+            })
+            .catch((err) => console.log(err))
     }
 
-
-        const lista = cidades.map((cidade) => 
-        <li key={cidade.id} value={cidade.nome} onClick={() => setCidadeSelecionadaLista(cidade.nome)}>{cidade.nome}</li>)
-
+    const mostrar = (e) =>{
+        e.preventDefault()
+        setImgu(URL.createObjectURL(img))
+        console.log(typeof(img))
+    }
     return(
         <>
-            <form>
-                <label htmlFor='search'>Pesquisa</label>
-                <input name='search' id='search' onChange={handleOnChange} placeholder={`Pesquisa`} value={cidadeSelecionadaLista}></input>
+            <form className={styles.teste1} onSubmit={salvar}>
+                <label htmlFor='file'>Pesquisa</label>
+                <input name='file' id='file' placeholder={`imagem`} type={`file`} onChange={e => setImg(e.target.files[0])}></input>
+                <button type='submit'>salvar</button>
+                <img className={styles.teste1} src={imgu}></img>
             </form>
             
-            {   
-                <ul>
-                    {lista}
-                </ul>
-                
-            }
-            </>
+        </>
     )
     
-}
+} 
 export default Teste

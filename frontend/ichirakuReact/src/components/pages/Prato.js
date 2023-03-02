@@ -14,6 +14,7 @@ function Prato(){
     let pessoa = localStorage.getItem("usuario")
     let pessoaObj = JSON.parse(pessoa)
     const[prato, setPrato] = useState({})
+    const[ingredientes, setIngredientes] = useState([])
     const[show, setShow] = useState(false)
     const[showComentario, setShowComentario] = useState(false)
     const[showAvaliacao, setShowAvaliacao] = useState(false)
@@ -21,6 +22,7 @@ function Prato(){
     const[comentarios, setComentarios] = useState([])
     const[sumAvaliacao, setSumAvaliacao] = useState()
     const navigate = useNavigate()
+    let j = 0
 
     useEffect(() => {
         if(pessoa===null){
@@ -62,6 +64,21 @@ function Prato(){
         .catch((err) => console.log(err))
     }, [])
 
+    //GET INGREDIENTES
+    useEffect(() =>{
+        fetch(`http://localhost:8080/ingredientes/mostrar/${id}`, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            })
+            .then((resp) => resp.json())
+            .then((data) => {
+            setIngredientes(data)
+            console.log(data)
+            })
+            .catch((err) => console.log(err))
+    }, [])
 
     //GET COMENTARIOS
     if(prato.id!==null){
@@ -139,14 +156,20 @@ function Prato(){
         .then((data) => {
             console.log(data)
             setPrato(data)
-            window.location.reload();
+            setSumAvaliacao((data.somaAvaliacao/data.qntAvaliacao).toFixed(1))
+            
         })
         .catch((err) => console.log(err))
     
     }
 
+    const home =(e) =>{
+        navigate(`/home`)
+    }
+
     return(
         <div className={styles.res_container}>
+            <button className={styles.buttonHome} onClick={home}>Home</button>
             {show &&
             <div className={styles.info}>
                 <div className={styles.foto}>
@@ -156,7 +179,16 @@ function Prato(){
                     <div className={styles.des_text}>
                         <h1>{prato.nome}</h1>
                         <p>{prato.descricao}</p>
-                        <Link to={`/${prato.restaurante.nome}`} style={{ textDecoration: 'none' }}><span className={styles.nome_restaurante}>{prato.restaurante.nome}</span></Link>
+                        {ingredientes.map((i) => {
+                            j++
+                            if(j === ingredientes.length){
+                                return(<span>{i.nome}</span>)
+                            } else {
+                                return(<span>{i.nome}, </span>)
+                                
+                            }
+                        })}
+                        <Link to={`/${prato.restaurante.nome}`} style={{ textDecoration: 'none' }}><p className={styles.nome_restaurante}>{prato.restaurante.nome}</p></Link>
                     </div>
                 </div>
                 <div className={styles.review}>

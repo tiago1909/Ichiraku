@@ -1,5 +1,8 @@
 package com.br.ichiraku.servico;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -55,5 +58,18 @@ public class PratoServico {
         prato.setSomaAvaliacao(prato.getSomaAvaliacao()+i);
         pr.save(prato);
         return new ResponseEntity<>(prato, HttpStatus.OK);
+    }
+
+    public ResponseEntity<?> pratoPesquisa(String nome, String cidade){
+        List<Prato> pratosT = pr.findAllByNomeLike("%"+nome+"%");
+        List<Prato> pratos = new ArrayList<>();
+        
+        for(int i = 0; i < pratosT.size(); i++){
+            if(pratosT.get(i).getRestaurante().getCidade().toLowerCase().equals(cidade.toLowerCase())){
+                pratos.add(pratosT.get(i));
+            }
+        }
+        
+        return new ResponseEntity<>(pratos, HttpStatus.OK);
     }
 }

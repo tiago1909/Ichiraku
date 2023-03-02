@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.br.ichiraku.Restaurante;
-import com.br.ichiraku.repositories.RestauranteRepository;
 import com.br.ichiraku.servico.RestauranteServico;
 
 
@@ -22,9 +21,6 @@ public class RestauranteControle {
     
     @Autowired
     private RestauranteServico rs;
-
-    @Autowired
-    private RestauranteRepository rr;
 
     @PostMapping("/criar")
     private ResponseEntity<?> criar(@RequestBody Restaurante restaurante){

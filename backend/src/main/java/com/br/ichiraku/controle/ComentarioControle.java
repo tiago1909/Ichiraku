@@ -2,7 +2,6 @@ package com.br.ichiraku.controle;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Sort;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -13,9 +12,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.br.ichiraku.Restaurante;
 import com.br.ichiraku.entities.Comentario;
-import com.br.ichiraku.repositories.ComentarioRepository;
 import com.br.ichiraku.servico.ComentarioServico;
 
 @RestController
@@ -24,9 +21,6 @@ public class ComentarioControle {
     
     @Autowired
     private ComentarioServico cs;
-
-    @Autowired
-    private ComentarioRepository cr;
 
     @PostMapping("/comentario/restaurante/criar")
     public ResponseEntity<?> criarRestaurante(@RequestBody Comentario comentario){

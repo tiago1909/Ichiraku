@@ -50,7 +50,7 @@ function Restaurante(){
                     setShow(true)
                     setShowComentario(true)
                     setComentario({...comentario, restaurante:data})
-                  }, "3000")
+                  }, 3000)
                 
             }
         })
@@ -135,13 +135,19 @@ function Restaurante(){
         .then((data) => {
             console.log(data)
             setRestaurante(data)
+            setSumAvaliacao(data.somaAvaliacao/data.qntAvaliacao)
         })
         .catch((err) => console.log(err))
     
     }
 
+    const home =(e) =>{
+        navigate(`/home`)
+    }
+
     return(
         <div className={styles.res_container}>
+            <button className={styles.buttonHome} onClick={home}>Home</button>
             {show &&
             <div className={styles.info}>
                 <div className={styles.foto}>

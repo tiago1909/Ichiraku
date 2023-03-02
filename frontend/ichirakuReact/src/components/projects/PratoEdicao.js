@@ -1,12 +1,29 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Input from '../form/Input';
 import styles from './PratoEdicao.module.css';
 
 
 function PratoEdicao(prato, excluir){
     const[pratoEditado, setPratoEditado] = useState(prato.prato)
+    const[ingredientes, setIngredientes] = useState([])
     const[showEditar, setShowEditar] = useState(false)
+    let j = 0
     
+    useEffect(() => {
+        fetch(`http://localhost:8080/ingredientes/mostrar/${prato.prato.id}`, {
+                method: 'GET',
+                headers: {
+                    'Content-Type':'application/json',
+                },
+            })
+            .then((resp) => resp.json())
+            .then((data) => {
+                console.log(data)
+                setIngredientes(data)
+            })
+            .catch((err) => console.log(err))
+    }, [])
+
     function excluir(){
         fetch(`http://localhost:8080/prato/excluir/${prato.prato.id}`, {
                 method: 'DELETE',
@@ -73,6 +90,18 @@ function PratoEdicao(prato, excluir){
                 <div className={styles.nome_descricao}>
                     <p className={styles.nome}>{prato.prato.nome}</p>
                     <p>{prato.prato.descricao}</p>
+                    {ingredientes.map((i) => {
+                        j++
+                        if(j === ingredientes.length){
+                            return(<span>{i.nome}</span>)
+                        } else {
+                            return(<span>{i.nome}, </span>)
+                            
+                        }
+                    }
+                        
+                        
+                    )}
                 </div>
                 <p className={styles.preco}><span>R$</span>{prato.prato.preco}</p>
                 

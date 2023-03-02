@@ -13,12 +13,22 @@ button{
     text-decoration: none;
     border: none;
     border-radius: 25px;
-    padding: 0.5em 1.5em;
     transition: 0.5s;
     cursor: pointer;
+    margin-right: 10px;
 }
 
 button:hover{
     color: #D85151;
     background-color: #f2f2f2;
+}
+
+.buttons{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}
+
+.form_in{
+    margin-top: 20px;
 }

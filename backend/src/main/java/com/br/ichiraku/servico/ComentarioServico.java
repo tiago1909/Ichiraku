@@ -9,7 +9,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
-import com.br.ichiraku.Restaurante;
 import com.br.ichiraku.entities.Comentario;
 import com.br.ichiraku.entities.Comentario.tipoEnum;
 import com.br.ichiraku.repositories.ComentarioRepository;

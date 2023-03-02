@@ -41,16 +41,48 @@ function ProjectFormHome(){
         
     }
 
+    function pesquisaPorPrato(){
+        fetch(`http://localhost:8080/prato/${cidadeSelecionadaLista}/${pesquisa.prato}`, {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+            })
+            .then((resp) => resp.json())
+            .then((data) => {
+                console.log(data)
+                if(data.mensagem === `Não foi encontrado`){
+                    setShow(true)
+                    setTimeout(() => {
+                        setShow(false)
+                    }, 1000)
+                } else{
+                    //navigate(`/${data.nome}`)
+                    navigate(`/search`, {state:{pratos: data}})
+                    console.log(data)
+                }
+                
+                
+            })
+            .catch((err) => console.log(err))
+    }
+
     const submit = (e) => {
         e.preventDefault()
-        if(pesquisa.restarurante!==null){
+        console.log(pesquisa)
+        if(pesquisa.restaurante){
+            console.log(`aaaa`)
             pesquisaPorRestaurante()
+        }
+        else if(pesquisa.prato){
+            pesquisaPorPrato()
         }
     }
 
     function handleChange(e){
         e.preventDefault()
         setpesquisa({...pesquisa, [e.target.name]: e.target.value})
+        console.log(pesquisa)
     }
 
 
@@ -105,7 +137,7 @@ function ProjectFormHome(){
                     name="prato" 
                     placeholder="Insira o nome do prato..." 
                     handleOnChange={handleChange} required={false}/>
-                <Submit text={"Pesquisar"}/>
+                <button type="submit">Pesquisar</button>
                 
             </form>
             {show && (
